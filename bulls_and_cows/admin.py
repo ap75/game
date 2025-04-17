@@ -1,3 +1,12 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Game, Try
+
+
+@admin.register(Game)
+class GameAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Try)
+class TryAdmin(admin.ModelAdmin):
+    pass

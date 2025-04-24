@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Ласкаво просимо, {{ user.username }}!</h1>
+
+  {% if current_game %}
+    <p>У вас є незавершена гра.</p>
+    <a href="{% url 'play_game' current_game.id %}">Продовжити гру</a>
+  {% else %}
+    <a href="{% url 'start_game' %}">Почати нову гру</a>
+  {% endif %}
+
+  <hr>
+  <h3>Ваша статистика:</h3>
+  <ul>
+    <li>Усього ігор: {{ total_games }}</li>
+    <li>Перемог: {{ total_wins }}</li>
+    <li>Середня кількість спроб до перемоги: {{ avg_tries }}</li>
+  </ul>
+{% endblock %}

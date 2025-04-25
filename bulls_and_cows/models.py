@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Game(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='games')
-    number = models.PositiveIntegerField() # validators 1000..9999
+    number = models.PositiveIntegerField()  # validators 1000..9999
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -12,7 +12,7 @@ class Game(models.Model):
 
     @property
     def is_finished(self):
-        return self.tries.filter(bull=4).exists()
+        return self.tries.filter(bulls=4).exists()
 
     @property
     def tries_count(self):

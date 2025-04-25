@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Ласкаво просимо, {{ user.username }}!</h1>
+  <h1>Ласкаво просимо{% if user.username %}, {{ user.username }}{% endif %}!</h1>
 
   {% if current_game %}
     <p>У вас є незавершена гра.</p>
-    <a href="{% url 'play_game' current_game.id %}">Продовжити гру</a>
+    <a href="">Продовжити гру</a>
   {% else %}
     <a href="{% url 'start_game' %}">Почати нову гру</a>
   {% endif %}

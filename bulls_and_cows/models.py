@@ -1,10 +1,16 @@
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.contrib.auth.models import User
 
 
 class Game(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='games')
-    number = models.PositiveIntegerField()  # validators 1000..9999
+    number = models.PositiveIntegerField(
+        validators=[
+            MinValueValidator(1000),
+            MaxValueValidator(9999)
+        ]
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -21,7 +27,12 @@ class Game(models.Model):
 
 class Try(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='tries')
-    guess = models.PositiveIntegerField() # validators 1000..9999
+    guess = models.PositiveIntegerField(
+        validators=[
+            MinValueValidator(1000),
+            MaxValueValidator(9999)
+        ]
+    )
     bulls = models.PositiveIntegerField()
     cows = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)

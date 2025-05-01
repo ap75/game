@@ -5,14 +5,19 @@ from django.contrib.auth.models import User
 
 
 class Game(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='games')
-    number = models.PositiveIntegerField(
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='games',
+        verbose_name='Користувач'
+    )
+    number = models.PositiveIntegerField("Загадане число",
         validators=[
             MinValueValidator(1000),
             MaxValueValidator(9999)
         ]
     )
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField('Дата створення', auto_now_add=True)
 
     class Meta:
         verbose_name = "Гра"
@@ -32,16 +37,25 @@ class Game(models.Model):
 
 
 class Try(models.Model):
-    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='tries')
-    guess = models.PositiveIntegerField(
+    game = models.ForeignKey(
+        Game,
+        on_delete=models.CASCADE,
+        related_name='tries',
+        verbose_name='Гра'
+    )
+    guess = models.PositiveIntegerField("Хід",
         validators=[
             MinValueValidator(1000),
             MaxValueValidator(9999)
         ]
     )
-    bulls = models.PositiveIntegerField()
-    cows = models.PositiveIntegerField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    bulls = models.PositiveIntegerField("Бики")
+    cows = models.PositiveIntegerField("Корови")
+    created_at = models.DateTimeField("Дата спроби", auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Спроба'
+        verbose_name_plural = 'Спроби'
 
     def __str__(self):
         return f"Try {self.guess}"

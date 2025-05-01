@@ -21,11 +21,12 @@ class Game(models.Model):
         return f"Game #{self.pk} for {self.user.username}"
 
     @property
-    @admin.display(boolean=True)
+    @admin.display(boolean=True, description='Завершено')
     def is_finished(self):
         return self.tries.filter(bulls=4).exists()
 
     @property
+    @admin.display(description='Кількість спроб')
     def tries_count(self):
         return self.tries.count()
 

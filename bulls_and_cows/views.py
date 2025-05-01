@@ -59,15 +59,10 @@ def start_game(request):
 def play_game(request, game_id):
     game = get_object_or_404(Game, pk=game_id, user=request.user)
 
-    if game.is_finished:
-        return redirect('index')
-
     form = TryForm(request.POST or None)
     if request.method == 'POST' and form.is_valid():
         guess = form.cleaned_data['guess']
-        # Перевіримо, чи не був уже такий хід
-        if not game.tries.filter(guess=guess).exists():
-            GameService.make_try(game, guess)
+        GameService.make_try(game, guess)
         return redirect('play_game', game_id=game.id)
 
     tries = game.tries.order_by('-created_at')

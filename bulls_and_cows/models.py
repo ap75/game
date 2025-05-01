@@ -1,5 +1,6 @@
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+from django.contrib import admin
 from django.contrib.auth.models import User
 
 
@@ -13,10 +14,15 @@ class Game(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        verbose_name = "Гра"
+        verbose_name_plural = "Гри"
+
     def __str__(self):
         return f"Game #{self.pk} for {self.user.username}"
 
     @property
+    @admin.display(boolean=True)
     def is_finished(self):
         return self.tries.filter(bulls=4).exists()
 

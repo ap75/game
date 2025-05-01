@@ -19,7 +19,8 @@ class GameAdmin(admin.ModelAdmin):
     search_fields = ('user__username', 'number')
     # Відображення спроб гри в адмінці
     inlines = [TryInline]
-    # is_finished.boolean = True
+    # Ієрархія за датою
+    date_hierarchy = 'created_at'
 
     # Оптимізація запитів, щоб завантажувати спроби разом з грою
     def get_queryset(self, request):

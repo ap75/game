@@ -24,7 +24,7 @@
 
       python manage.py migrate
 
-* Додайте користувача
+* Додайте суперкористувача, якщо хочете користуватися адмінкою
 
       python manage.py createsuperuser
 

@@ -38,7 +38,7 @@ def index(request):
 
 def signup(request):
     if request.method == "POST":
-        # створити коритувача
+        # створити користувача
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
